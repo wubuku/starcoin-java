@@ -28,8 +28,6 @@ import org.starcoin.types.TransactionAuthenticator.Ed25519;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 
-import static org.starcoin.utils.HashUtils.hashStarcoinSignedUserTransaction;
-
 public class SignatureUtils {
 
     public static final String GAS_TOKEN_CODE_STC = "0x1::STC::STC";
@@ -42,8 +40,14 @@ public class SignatureUtils {
                                             Long expirationTimestampSecs) {
         SignedUserTransaction signedUserTransaction = createSignedUserTransaction(ed25519PrivateKey, chainId, accountAddress,
                 accountSeqNumber, payload, gasPrice, gasLimit, expirationTimestampSecs);
-        byte[] signedMessage = signedUserTransaction.bcsSerialize();
-        return hashStarcoinSignedUserTransaction(signedMessage);
+        byte[] message = signedUserTransaction.bcsSerialize();
+        return hashStarcoinSignedUserTransactionHex(message);
+    }
+
+    private static String hashStarcoinSignedUserTransactionHex(byte[] m) {
+        byte[] bytesToHash = com.google.common.primitives.Bytes
+                .concat(HashUtils.hashWithStarcoinPrefix("SignedUserTransaction"), m);
+        return Hex.encode(HashUtils.sha3Hash(bytesToHash));
     }
 
     @SneakyThrows
