@@ -16,10 +16,24 @@
 package org.starcoin.bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Authenticator {
     @JSONField(name = "Ed25519")
+    @JsonProperty("Ed25519")
     Ed25519 ed25519;
+
+    public MultiEd25519 getMultiEd25519() {
+        return multiEd25519;
+    }
+
+    public void setMultiEd25519(MultiEd25519 multiEd25519) {
+        this.multiEd25519 = multiEd25519;
+    }
+
+    @JSONField(name = "MultiEd25519")
+    @JsonProperty("MultiEd25519")
+    MultiEd25519 multiEd25519;
 
     public Ed25519 getEd25519() {
         return ed25519;
@@ -33,6 +47,7 @@ public class Authenticator {
     public String toString() {
         return "Authenticator{" +
                 "ed25519=" + ed25519 +
+                ", multiEd25519=" + multiEd25519 +
                 '}';
     }
 }

@@ -18,37 +18,35 @@ package org.starcoin.bean;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.List;
+public class MultiEd25519 {
+    @JSONField(name = "public_key")
+    @JsonProperty("public_key")
+    String publicKey;
+    @JSONField(name = "signature")
+    @JsonProperty("signature")
+    String signature;
 
-public class BlockBody {
-    @JSONField(name = "Full")
-    @JsonProperty("Full")
-    List<UserTransaction> userTransactions;
-
-    @JSONField(name = "Hashes")
-    @JsonProperty("Hashes")
-    List<String> hashes;
-    public List<UserTransaction> getUserTransactions() {
-        return userTransactions;
+    public String getPublicKey() {
+        return publicKey;
     }
 
-    public void setUserTransactions(List<UserTransaction> userTransactions) {
-        this.userTransactions = userTransactions;
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
     }
 
-    public List<String> getHashes() {
-        return hashes;
+    public String getSignature() {
+        return signature;
     }
 
-    public void setHashes(List<String> hashes) {
-        this.hashes = hashes;
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 
     @Override
     public String toString() {
-        return "BlockBody{" +
-                "userTransactions=" + userTransactions +
-                ", hashes=" + hashes +
+        return "MultiEd25519{" +
+                "publicKey='" + publicKey + '\'' +
+                ", signature='" + signature + '\'' +
                 '}';
     }
 }
